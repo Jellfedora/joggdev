@@ -1,48 +1,43 @@
 import React, { Component } from 'react';
 import {
-    Link
+    BrowserRouter as Router,
+    Switch,
+    Route
 } from "react-router-dom";
-import axios from 'axios';
+import { connect } from 'react-redux';
+
 import Header from '../Header';
 import Goals from '../Goals';
-import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Admin from '../Admin';
 
+const adminRoute = process.env.REACT_APP_ADMIN_ROUTE;
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            post_content: null
         };
     }
 
     componentDidMount() {
-
-        axios.get('http://localhost/running_wp/back/index.php/wp-json/wp/v2/posts/1'
-        ).then(response => {
-            console.log(response.data)
-            this.setState({ post_content: response.data.content.rendered })
-        })
-            .catch(error => {
-            });
+        console.log(adminRoute)
     }
 
     render() {
         return (
             <div className="home">
                 <Header />
-                <Goals />
-                <div className="example__component__title">
 
 
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: this.state.post_content
-                        }}></div>
-                </div>
-
-
-
+                <Router>
+                    <Switch>
+                        <Route path={adminRoute}>
+                            <Admin />
+                        </Route>
+                        <Route path="/">
+                            <Goals />
+                        </Route>
+                    </Switch>
+                </Router>
             </div>
         );
     }
