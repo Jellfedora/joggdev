@@ -37,12 +37,12 @@
 
             &__item {
                 display: flex;
-                flex-wrap: wrap;
-                margin-right: 0.5em;
+                margin: 0.5em;
                 flex: 1;
 
                 &__title {
                     font-weight: bold;
+                    display: inline-block;
                 }
 
                 &__goal {

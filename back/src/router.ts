@@ -6,7 +6,8 @@ const router: express.Router = express.Router();
 
 // Goals
 router.get(`/api/get-goals`, MainController.getGoals);
-router.get(`/api/add-goal`, MainController.addGoal);
-router.get(`/api/delete-goal`, MainController.deleteGoal);
+router.post(`/api/add-goal`, MainController.addGoal);
+router.post(`/api/edit-goal/:key`, MainController.editToOldGoal);
+router.delete(`/api/delete-goal/:key`, MainController.deleteGoal);
 
 export default router;

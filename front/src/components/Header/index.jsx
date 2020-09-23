@@ -17,7 +17,7 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <h1>JoggDev_</h1>
+                <Link to="/"><h1>JoggDev_</h1></Link>
             </div>
         );
     }

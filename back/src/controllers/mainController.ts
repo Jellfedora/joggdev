@@ -21,9 +21,11 @@ export default class MainController {
 
     // Ajoute un objectif
     static async addGoal(request: Request, response: Response) {
+        console.log(request.body.title)
+
         const newGoal: IGoal = new Goal({
-            title: 'Poids',
-            value: '90Kg',
+            title: request.body.title,
+            value: request.body.value,
             is_old: false,
             created_at: new Date(),
             updated_at: new Date()
@@ -37,10 +39,39 @@ export default class MainController {
         });
     }
 
+    // Passe un objectif en terminé
+    static async editToOldGoal(request: Request, response: Response) {
+        console.log(request.params.key)
+        let filter = { _id: request.params.key };
+
+        let update = {
+            is_old: true
+        }
+
+        let goalUpdated = await Goal.findOneAndUpdate(filter, update);
+
+        return response.status(200).json(goalUpdated);
+    }
+
     // Supprime un objectif
     static async deleteGoal(request: Request, response: Response) {
-        const allGoals: Array<IGoal> = await Goal.find({ is_old: false });
+        console.log(request.params.key)
 
-        return response.status(200).json(allGoals);
+
+        const getGoal = await Goal.findOne({ _id: request.params.key });
+        if (getGoal) {
+            getGoal.remove((err, user) => {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log(getGoal.title + ' supprimé');
+                    return response.status(200).json(getGoal.title + ' supprimé');
+                }
+            });
+
+
+        } else {
+            return response.status(403).json('Aucun objectif portant cet identifiant trouvé');
+        }
     }
 }

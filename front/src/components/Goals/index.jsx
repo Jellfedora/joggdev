@@ -75,7 +75,7 @@ class Goals extends Component {
                         </ul>
                     </div>
                 }
-                <hr />
+
                 {oldGoals &&
                     <div className="goals__old-goals">
                         <h3 className="goals__old-goals__title">Terminés</h3>

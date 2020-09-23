@@ -25,10 +25,8 @@ class Home extends Component {
     render() {
         return (
             <div className="home">
-                <Header />
-
-
                 <Router>
+                    <Header />
                     <Switch>
                         <Route path={adminRoute}>
                             <Admin />
